@@ -1,0 +1,17 @@
+#Simulation output files
+*_res.m
+*_det*.m
+*_dep.m
+*_fima*m
+*_bumat*.m
+*_rfr*.m
+*_out.m
+*.out
+
+# Monte Carlo Restart / detector files
+
+*_wrk*
+*_rst*
+*_his*
+*_det*
+*.seed

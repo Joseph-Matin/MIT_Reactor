@@ -1,0 +1,42 @@
+include material.inp
+
+% Hanlon infinite-plate pitch study: LEU five-plate repeating slab.
+% Dimensions in cm. Add separately defined fuel_leu, clad_zr4, water materials.
+% The 100 cm z extent is a computational repeat length, NOT a finite core.
+% The five plates are identical and infinitely long in y via reflective BCs.
+% Fuel meat = 0.25 cm; cladding = 0.04 cm on EACH broad face.
+% Pitch = 1.245 cm; coolant gap = 1.245 - 0.33 = 0.915 cm.
+% Centers: -2.490, -1.245, 0, 1.245, 2.490 cm.
+
+set bc 2
+
+surf box cuboid -3.1125 3.1125 -3.1125 3.1125 -50 50
+
+surf f1 cuboid -2.615 -2.365 -3.1125 3.1125 -50 50
+surf c1 cuboid -2.655 -2.325 -3.1125 3.1125 -50 50
+surf f2 cuboid -1.370 -1.120 -3.1125 3.1125 -50 50
+surf c2 cuboid -1.410 -1.080 -3.1125 3.1125 -50 50
+surf f3 cuboid -0.125 0.125 -3.1125 3.1125 -50 50
+surf c3 cuboid -0.165 0.165 -3.1125 3.1125 -50 50
+surf f4 cuboid 1.120 1.370 -3.1125 3.1125 -50 50
+surf c4 cuboid 1.080 1.410 -3.1125 3.1125 -50 50
+surf f5 cuboid 2.365 2.615 -3.1125 3.1125 -50 50
+surf c5 cuboid 2.325 2.655 -3.1125 3.1125 -50 50
+
+cell fuel1 0 fuel_leu -f1
+cell clad1 0 clad_zr4 -c1 f1
+cell fuel2 0 fuel_leu -f2
+cell clad2 0 clad_zr4 -c2 f2
+cell fuel3 0 fuel_leu -f3
+cell clad3 0 clad_zr4 -c3 f3
+cell fuel4 0 fuel_leu -f4
+cell clad4 0 clad_zr4 -c4 f4
+cell fuel5 0 fuel_leu -f5
+cell clad5 0 clad_zr4 -c5 f5
+cell coolant 0 water -box c1 c2 c3 c4 c5
+cell exterior 0 outside box
+
+set pop 10000 100 30
+
+% XY cross-section at the middle of the repeating five-plate geometry.
+plot 3 800 800
